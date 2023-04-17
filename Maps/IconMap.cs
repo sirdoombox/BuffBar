@@ -20,12 +20,10 @@ public static class IconMap
             dict[name] = icon;
             loaded++;
         }
+
         _icons = dict;
         return loaded;
     }
 
-    public static Texture2D Get(string name)
-    {
-        return _icons![name.ToLower()];
-    }
+    public static Texture2D Get(string name) => _icons![name.ToLower()];
 }

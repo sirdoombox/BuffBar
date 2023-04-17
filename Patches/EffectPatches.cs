@@ -30,17 +30,17 @@ public static class EffectPatches
     {
         if (!target.TargetEntity.IsPlayer()) return;
         var durationModifier = target.EffectModifier.Modifiers.Modifiers.BuffDurationModifier;
-        var modifiedDuration = __instance.Duration + (__instance.Duration * durationModifier);
+        var modifiedDuration = __instance.Duration + __instance.Duration * durationModifier;
         Melon<BuffBarMod>.Instance.UpdateDurationOfEffect(__instance, modifiedDuration);
     }
-    
+
     [HarmonyPatch(typeof(TemporaryShieldOnActivationEffect), nameof(TemporaryShieldOnActivationEffect.DoApplyEffects))]
     [HarmonyPostfix]
     public static void DoApplyEffects(TemporaryShieldOnActivationEffect __instance, SkillTargetToProcessData target)
     {
         if (!target.TargetEntity.IsPlayer()) return;
         var durationModifier = target.EffectModifier.Modifiers.Modifiers.BuffDurationModifier;
-        var modifiedDuration = __instance.Duration + (__instance.Duration * durationModifier);
+        var modifiedDuration = __instance.Duration + __instance.Duration * durationModifier;
         Melon<BuffBarMod>.Instance.UpdateDurationOfEffect(__instance, modifiedDuration);
     }
 }
