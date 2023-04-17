@@ -5,25 +5,38 @@ namespace BuffBar.Constants;
 
 public static class GUIStyles
 {
-    public static readonly GUIStyle OverlayTimer = new(GUI.skin.box)
+    private static GUIStyle? _overlayTimer;
+    public static GUIStyle OverlayTimer
     {
-        normal =
+        get
         {
-            background = TextureUtility.GetTexture()
-        },
-        margin = new RectOffset(0, 0, 0, 0),
-        overflow = new RectOffset(0, 0, 0, 0),
-        fixedWidth = ResUtility.GetWidth(Size.ICON),
-        fixedHeight = 0,
-        stretchWidth = false,
-        stretchHeight = false,
-        padding = new RectOffset(0, 0, 0, 0),
-        border = new RectOffset(0, 0, 0, 0)
-    };
+            _overlayTimer ??= new GUIStyle
+            {
+                normal = { background = TextureUtility.GetTexture(Colors.OverlayProgress) },
+                margin = new RectOffset(0, 0, 0, 0),
+                overflow = new RectOffset(0, 0, 0, 0),
+                fixedWidth = ResUtility.GetWidth(Size.ICON),
+                fixedHeight = 0,
+                stretchWidth = false,
+                stretchHeight = false,
+                padding = new RectOffset(0, 0, 0, 0),
+                border = new RectOffset(0, 0, 0, 0)
+            };
+            return _overlayTimer;
+        }
+    }
 
-    public static readonly GUIStyle OverlayText = new(GUI.skin.label)
+    private static GUIStyle? _overlayText;
+    public static GUIStyle OverlayText
     {
-        fontSize = Size.FONT,
-        normal = new GUIStyleState { textColor = Color.white }
-    };
+        get
+        {
+            _overlayText ??= new GUIStyle
+            {
+                fontSize = Size.FONT,
+                normal = new GUIStyleState { textColor = Color.white }
+            };
+            return _overlayText;
+        }
+    }
 }

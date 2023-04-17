@@ -1,4 +1,5 @@
-﻿using BuffBar.Extensions;
+﻿using BuffBar.Constants;
+using BuffBar.Extensions;
 using BuffBar.Maps;
 using BuffBar.Models;
 using BuffBar.UI;
@@ -40,7 +41,9 @@ public class BuffBarMod : MelonMod
                 .GetComponentInChildren<TextMeshProUGUI>()
                 .font
                 .sourceFontFile;
-            _ui = new OverlayUI(font);
+            LoggerInstance.Msg($"Got Font {font.name}");
+            GUIStyles.OverlayText.font = font;
+            _ui = new OverlayUI();
         }
 
         if (buildIndex <= 2) return; // ignore loading (0) and main menu (2)
@@ -61,7 +64,8 @@ public class BuffBarMod : MelonMod
 
     public void UpdateDurationOfEffect(TemporaryStatsOnActivationEffect effect, float duration) =>
         _stats[effect.GetHashCode()].UpdateDuration(duration);
-
+    
+    // BUG: On first run this seems to cause a nullref and I'm not sure why...
     public override void OnUpdate()
     {
         if (_health == null) return;
@@ -72,7 +76,6 @@ public class BuffBarMod : MelonMod
                 exp.AddExperience(exp.RequiredExperience);
                 GameManagerUtil.SurvivorsGameManager.PlayerEntity._inventory.InventoryData.Rerolls = 100;
             }
-
         _ui.PurgeState();
         foreach (var (_, stat) in _stats)
         {

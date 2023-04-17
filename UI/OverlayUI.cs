@@ -11,19 +11,12 @@ public class OverlayUI
     private bool HasMinions => _minions.Count > 0;
     private float BuffLeft => HasMinions ? Size.BUFF_LEFT_OFFSET : Size.MARGIN;
 
-    private readonly GUIStyle _style;
     private readonly List<MinionState> _minions = new();
     private readonly List<ShieldState> _shields = new();
     private readonly List<StatState> _stats = new();
 
     private float _currBuffPos;
     private float _currMinionPos;
-
-    public OverlayUI(Font font)
-    {
-        _style = GUIStyles.OverlayText;
-        _style.font = font;
-    }
 
     public void Send(MinionState minion) => _minions.Add(minion);
     public void Send(ShieldState shield) => _shields.Add(shield);
@@ -90,6 +83,6 @@ public class OverlayUI
             x = topLeft.x + Size.MARGIN * 2,
             y = topLeft.y - Size.FONT_VERT_OFFSET + Size.ICON - Size.FONT_VERT_OFFSET - Size.MARGIN
         };
-        GUIExt.DrawTextWithOutline(new Rect(labelPos, Size.IconSize), text, 2, _style);
+        GUIExt.DrawTextWithOutline(new Rect(labelPos, Size.IconSize), text, 2, GUIStyles.OverlayText);
     }
 }
