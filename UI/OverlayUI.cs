@@ -1,10 +1,9 @@
-﻿using MelonLoader;
-using SoulstoneSurvivorsMods.BuffOverlay.Maps;
-using SoulstoneSurvivorsMods.BuffOverlay.Models;
-using SoulstoneSurvivorsMods.BuffOverlay.Utils;
+﻿using BuffBar.Maps;
+using BuffBar.Models;
+using BuffBar.Utils;
 using UnityEngine;
 
-namespace SoulstoneSurvivorsMods.BuffOverlay.UI;
+namespace BuffBar.UI;
 
 public class OverlayUI
 {
@@ -37,7 +36,7 @@ public class OverlayUI
     private float _currMinionPos;
     private const float ICON_SIZE = 50;
     private const float MARGIN = 5;
-    private const int FONT_SIZE = 50;
+    private const int FONT_SIZE = 32;
     private const float FONT_VERT_OFFSET = FONT_SIZE * 0.625f;
     private const float LABEL_OFFSET = ICON_SIZE / 4f;
 
@@ -45,10 +44,14 @@ public class OverlayUI
     public void Send(ShieldState shield) => _shields.Add(shield);
     public void Send(StatState stat) => _stats.Add(stat);
 
-    public OverlayUI(GUIStyle style)
+    public OverlayUI(Font font)
     {
-        _style = style;
-        _style.fontSize = FONT_SIZE;
+        _style = new GUIStyle
+        {
+            font = font,
+            fontSize = FONT_SIZE,
+            normal = new GUIStyleState { textColor = Color.white }
+        };
     }
 
     public void PurgeState()
@@ -109,7 +112,31 @@ public class OverlayUI
 
     private void PushTextOverlay(Vector2 topLeft, string text)
     {
-        var labelPos = topLeft with { x = topLeft.x + LABEL_OFFSET, y = topLeft.y - FONT_VERT_OFFSET + LABEL_OFFSET };
+        var labelPos = topLeft with
+        {
+            x = topLeft.x + MARGIN * 2, 
+            y = topLeft.y - FONT_VERT_OFFSET + ICON_SIZE - FONT_VERT_OFFSET - MARGIN
+        };
+        DrawOutline(new Rect(labelPos, IconSize), text, 2, _style);
         GUI.Label(new Rect(labelPos, IconSize), text, _style);
+    }
+
+    void DrawOutline(Rect r, string t, int strength, GUIStyle style)
+    {
+        GUI.color = new Color(0, 0, 0, 1);
+        int i;
+        for (i = -strength; i <= strength; i++)
+        {
+            GUI.Label(new Rect(r.x - strength, r.y + i, r.width, r.height), t, style);
+            GUI.Label(new Rect(r.x + strength, r.y + i, r.width, r.height), t, style);
+        }
+
+        for (i = -strength + 1; i <= strength - 1; i++)
+        {
+            GUI.Label(new Rect(r.x + i, r.y - strength, r.width, r.height), t, style);
+            GUI.Label(new Rect(r.x + i, r.y + strength, r.width, r.height), t, style);
+        }
+
+        GUI.color = new Color(1, 1, 1, 1);
     }
 }

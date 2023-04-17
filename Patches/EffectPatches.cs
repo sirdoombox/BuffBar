@@ -1,9 +1,9 @@
-﻿using HarmonyLib;
+﻿using BuffBar.Core;
+using HarmonyLib;
 using Il2Cpp;
 using MelonLoader;
-using SoulstoneSurvivorsMods.BuffOverlay.Models;
 
-namespace SoulstoneSurvivorsMods.BuffOverlay.Patches;
+namespace BuffBar.Patches;
 
 [HarmonyPatch]
 public static class EffectPatches
@@ -13,7 +13,7 @@ public static class EffectPatches
     public static void Setup(TemporaryShieldOnActivationEffect __instance, Skill skill)
     {
         if (string.IsNullOrWhiteSpace(skill.SkillName)) return;
-        Melon<BuffOverlayMod>.Instance.AddEffect(__instance, skill);
+        Melon<BuffBarMod>.Instance.AddEffect(__instance, skill);
     }
 
     [HarmonyPatch(typeof(TemporaryStatsOnActivationEffect), nameof(TemporaryStatsOnActivationEffect.Setup))]
@@ -21,7 +21,7 @@ public static class EffectPatches
     public static void Setup(TemporaryStatsOnActivationEffect __instance, Skill skill)
     {
         if (string.IsNullOrWhiteSpace(skill.SkillName)) return;
-        Melon<BuffOverlayMod>.Instance.AddEffect(__instance, skill);
+        Melon<BuffBarMod>.Instance.AddEffect(__instance, skill);
     }
 
     [HarmonyPatch(typeof(TemporaryStatsOnActivationEffect), nameof(TemporaryStatsOnActivationEffect.DoApplyEffects))]
@@ -31,7 +31,7 @@ public static class EffectPatches
         if (!target.TargetEntity.IsPlayer()) return;
         var durationModifier = target.EffectModifier.Modifiers.Modifiers.BuffDurationModifier;
         var modifiedDuration = __instance.Duration + (__instance.Duration * durationModifier);
-        Melon<BuffOverlayMod>.Instance.UpdateDurationOfEffect(__instance, modifiedDuration);
+        Melon<BuffBarMod>.Instance.UpdateDurationOfEffect(__instance, modifiedDuration);
     }
     
     [HarmonyPatch(typeof(TemporaryShieldOnActivationEffect), nameof(TemporaryShieldOnActivationEffect.DoApplyEffects))]
@@ -41,6 +41,6 @@ public static class EffectPatches
         if (!target.TargetEntity.IsPlayer()) return;
         var durationModifier = target.EffectModifier.Modifiers.Modifiers.BuffDurationModifier;
         var modifiedDuration = __instance.Duration + (__instance.Duration * durationModifier);
-        Melon<BuffOverlayMod>.Instance.UpdateDurationOfEffect(__instance, modifiedDuration);
+        Melon<BuffBarMod>.Instance.UpdateDurationOfEffect(__instance, modifiedDuration);
     }
 }

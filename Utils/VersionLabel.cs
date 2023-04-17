@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SoulstoneSurvivorsMods.BuffOverlay.Utils;
+namespace BuffBar.Utils;
 
 public static class VersionLabel
 {

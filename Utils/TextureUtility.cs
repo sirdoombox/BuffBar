@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace SoulstoneSurvivorsMods.BuffOverlay.Utils;
+namespace BuffBar.Utils;
 
-public class TextureUtility
+public abstract class TextureUtility
 {
     private static readonly Color BarColor = new(0.42f, 0.42f, 0.42f, 0.5f);
 	

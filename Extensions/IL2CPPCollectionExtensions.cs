@@ -1,7 +1,7 @@
 ﻿using Il2CppSystem.Linq;
 using Il2CppCollections = Il2CppSystem.Collections.Generic;
 
-namespace SoulstoneSurvivorsMods.BuffOverlay.Extensions;
+namespace BuffBar.Extensions;
 
 public static class IL2CPPCollectionExtensions
 {

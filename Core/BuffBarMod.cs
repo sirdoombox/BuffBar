@@ -1,19 +1,19 @@
-﻿using Il2Cpp;
+﻿using BuffBar.Extensions;
+using BuffBar.Maps;
+using BuffBar.Models;
+using BuffBar.UI;
+using BuffBar.Utils;
+using Il2Cpp;
 using Il2CppTMPro;
 using MelonLoader;
-using SoulstoneSurvivorsMods.BuffOverlay.Extensions;
-using SoulstoneSurvivorsMods.BuffOverlay.Maps;
-using SoulstoneSurvivorsMods.BuffOverlay.Models;
-using SoulstoneSurvivorsMods.BuffOverlay.UI;
-using SoulstoneSurvivorsMods.BuffOverlay.Utils;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Il2CppCollections = Il2CppSystem.Collections.Generic;
 using Object = UnityEngine.Object;
 
-namespace SoulstoneSurvivorsMods.BuffOverlay;
+namespace BuffBar.Core;
 
-public class BuffOverlayMod : MelonMod
+// TODO: More tidying up everywhere
+public class BuffBarMod : MelonMod
 {
     private readonly Dictionary<int, TemporaryShieldWrapper> _shields = new();
 
@@ -40,13 +40,7 @@ public class BuffOverlayMod : MelonMod
                 .GetComponentInChildren<TextMeshProUGUI>()
                 .font
                 .sourceFontFile;
-            var style = new GUIStyle
-            {
-                font = font,
-                fontSize = 32,
-                normal = new GUIStyleState { textColor = Color.white }
-            };
-            _ui = new OverlayUI(style);
+            _ui = new OverlayUI(font);
         }
         if (buildIndex <= 2) return; // ignore loading (0) and main menu (2)
         VersionLabel.Disable();
@@ -67,10 +61,6 @@ public class BuffOverlayMod : MelonMod
     public void UpdateDurationOfEffect(TemporaryStatsOnActivationEffect effect, float duration) => 
         _stats[effect.GetHashCode()].UpdateDuration(duration);
 
-    // TODO: Move to "event based" and 
-    // TODO: Try to overlay time + percentage for shields in some way?
-    // TODO: Use some kinda fill overlay for time remaining
-    // TODO: Figure out better text rendering solution for HP & counts.
     public override void OnUpdate()
     {
         if (_health == null) return;
@@ -109,7 +99,12 @@ public class BuffOverlayMod : MelonMod
         }
 
         foreach (var follower in _followers)
-            _ui.Send(new MinionState(follower.Key[..^5], follower.Value));
+        {
+            var name = follower.Key;
+            if (name.EndsWith("Title"))
+                name = name[..^5];
+            _ui.Send(new MinionState(name, follower.Value));
+        }
     }
 
     public override void OnGUI()

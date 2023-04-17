@@ -1,7 +1,6 @@
-﻿using Il2CppInterop.Runtime.InteropTypes.Arrays;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace SoulstoneSurvivorsMods.BuffOverlay.Maps;
+namespace BuffBar.Maps;
 
 public static class IconMap
 {

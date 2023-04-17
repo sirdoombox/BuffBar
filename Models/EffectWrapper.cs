@@ -1,7 +1,7 @@
-﻿using Il2Cpp;
-using SoulstoneSurvivorsMods.BuffOverlay.Extensions;
+﻿using BuffBar.Extensions;
+using Il2Cpp;
 
-namespace SoulstoneSurvivorsMods.BuffOverlay.Models;
+namespace BuffBar.Models;
 
 public abstract class EffectWrapper<T> where T : SkillEffect
 {
