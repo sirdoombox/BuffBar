@@ -3,6 +3,7 @@
 
 # Jetbrain Rider Cache
 .idea/
+.idea/*
 Assets/Plugins/Editor/JetBrains*
 
 # Visual Studio Code
