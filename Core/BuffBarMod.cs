@@ -1,4 +1,5 @@
-﻿using BuffBar.Constants;
+﻿using BuffBar.Collections;
+using BuffBar.Constants;
 using BuffBar.Extensions;
 using BuffBar.Maps;
 using BuffBar.Models;
@@ -16,9 +17,9 @@ namespace BuffBar.Core;
 // TODO: More tidying up everywhere
 public class BuffBarMod : MelonMod
 {
-    private readonly Dictionary<int, TemporaryShieldWrapper> _shields = new();
+    private readonly SkillEffectCollection<TemporaryShieldWrapper, TemporaryShieldOnActivationEffect> _shields = new();
 
-    private readonly Dictionary<int, TemporaryStatsWrapper> _stats = new();
+    private readonly SkillEffectCollection<TemporaryStatsWrapper, TemporaryStatsOnActivationEffect> _stats = new();
 
     private readonly Dictionary<string, int> _followers = new();
 
@@ -58,16 +59,16 @@ public class BuffBarMod : MelonMod
     }
 
     public void AddEffect(TemporaryShieldOnActivationEffect effect, Skill skill) =>
-        _shields.Add(effect.GetHashCode(), new TemporaryShieldWrapper(effect, skill));
+        _shields.Add(new TemporaryShieldWrapper(effect, skill));
 
     public void AddEffect(TemporaryStatsOnActivationEffect effect, Skill skill) =>
-        _stats.Add(effect.GetHashCode(), new TemporaryStatsWrapper(effect, skill));
+        _stats.Add(new TemporaryStatsWrapper(effect, skill));
 
     public void UpdateDurationOfEffect(TemporaryShieldOnActivationEffect effect, float duration) =>
-        _shields[effect.GetHashCode()].UpdateDuration(duration);
+        _shields.UpdateDuration(effect, duration);
 
     public void UpdateDurationOfEffect(TemporaryStatsOnActivationEffect effect, float duration) =>
-        _stats[effect.GetHashCode()].UpdateDuration(duration);
+        _stats.UpdateDuration(effect, duration);
     
     // BUG: On first run this seems to cause a nullref and I'm not sure why...
     public override void OnUpdate()
@@ -79,13 +80,13 @@ public class BuffBarMod : MelonMod
             LevelUpUtility.AddRerolls(50);
         }
         _ui.PurgeState();
-        foreach (var (_, stat) in _stats)
+        foreach (var stat in _stats)
         {
             if (!stat.HasEffects) continue;
             _ui.Send(new StatState(stat.Name, stat.MaxDuration, stat.Effect.RemainingDuration));
         }
 
-        foreach (var (_, shield) in _shields)
+        foreach (var shield in _shields)
         {
             if (!shield.HasEffects) continue;
             var tempShield = shield.Effect;
