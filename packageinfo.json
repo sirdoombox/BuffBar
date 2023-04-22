@@ -1,0 +1,8 @@
+{
+  "name": "Buff Bar",
+  "description": "Displays active buffs, shields and minions.",
+  "id": "com.Doombox.BuffBar",
+  "author": "Doombox",
+  "version": "0.0.1",
+  "dependencies": []
+}

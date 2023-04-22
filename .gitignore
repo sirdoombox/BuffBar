@@ -57,4 +57,7 @@ sysinfo.txt
 # Other
 [Bb]in/
 
+# paths.csproj
+paths.csproj
+
 # End of https://www.gitignore.io/api/unity

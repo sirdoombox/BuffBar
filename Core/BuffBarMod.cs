@@ -26,6 +26,8 @@ public class BuffBarMod : MelonMod
 
     private HealthComponent _health = null!;
 
+    private bool _inGame;
+
     public override void OnInitializeMelon()
     {
         var loaded = IconMap.LoadIcons();
@@ -34,6 +36,7 @@ public class BuffBarMod : MelonMod
 
     public override void OnSceneWasInitialized(int buildIndex, string sceneName)
     {
+        _inGame = false;
         if (buildIndex == 0) // splash screen
         {
             var font = Object.FindObjectOfType<Canvas>()
@@ -47,6 +50,7 @@ public class BuffBarMod : MelonMod
         }
 
         if (buildIndex <= 2) return; // ignore loading (0) and main menu (2)
+        _inGame = true;
         VersionLabelUtility.Disable();
         _stats.Clear();
         _shields.Clear();
@@ -68,14 +72,12 @@ public class BuffBarMod : MelonMod
     // BUG: On first run this seems to cause a nullref and I'm not sure why...
     public override void OnUpdate()
     {
-        if (_health == null) return;
+        if (!_inGame) return;
         if (Keyboard.current.f11Key.wasPressedThisFrame)
-            for (var i = 0; i < 10; i++)
-            {
-                var exp = GameManagerUtil.SurvivorsGameManager.PlayerEntity._experience;
-                exp.AddExperience(exp.RequiredExperience);
-                GameManagerUtil.SurvivorsGameManager.PlayerEntity._inventory.InventoryData.Rerolls = 100;
-            }
+        {
+            LevelUpUtility.AddLevels(10);
+            LevelUpUtility.AddRerolls(50);
+        }
         _ui.PurgeState();
         foreach (var (_, stat) in _stats)
         {
@@ -112,7 +114,7 @@ public class BuffBarMod : MelonMod
 
     public override void OnGUI()
     {
-        if (_health == null) return;
+        if (!_inGame) return;
         _ui.OnGUI();
     }
 }

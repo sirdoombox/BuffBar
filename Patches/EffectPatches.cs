@@ -8,6 +8,8 @@ namespace BuffBar.Patches;
 [HarmonyPatch]
 public static class EffectPatches
 {
+    // No need for R# to be whining about Harmony naming conventions
+    // ReSharper disable InconsistentNaming
     [HarmonyPatch(typeof(TemporaryShieldOnActivationEffect), nameof(TemporaryShieldOnActivationEffect.Setup))]
     [HarmonyPostfix]
     public static void Setup(TemporaryShieldOnActivationEffect __instance, Skill skill)
@@ -43,4 +45,5 @@ public static class EffectPatches
         var modifiedDuration = __instance.Duration + __instance.Duration * durationModifier;
         Melon<BuffBarMod>.Instance.UpdateDurationOfEffect(__instance, modifiedDuration);
     }
+    // ReSharper restore InconsistentNaming
 }
