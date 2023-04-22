@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="paths.csproj"/>
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="0Harmony">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\net6\0Harmony.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\Assembly-CSharp.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Il2CppInterop.Runtime">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\net6\Il2CppInterop.Runtime.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Il2Cppmscorlib">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\Il2Cppmscorlib.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Il2CppSystem">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\Il2CppSystem.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Il2CppSystem.Core">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\Il2CppSystem.Core.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="MelonLoader">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\net6\MelonLoader.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Unity.InputSystem">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\Unity.InputSystem.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="Unity.TextMeshPro">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\Unity.TextMeshPro.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\UnityEngine.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\UnityEngine.CoreModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\UnityEngine.IMGUIModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.InputModule">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\UnityEngine.InputModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\UnityEngine.TextRenderingModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+            <HintPath>$(SoulstoneSurvivorsPath)\MelonLoader\Il2CppAssemblies\UnityEngine.UIModule.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="paths.csproj" />
+    </ItemGroup>
+</Project>
